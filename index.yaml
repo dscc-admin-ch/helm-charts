@@ -1,5 +1,16 @@
 apiVersion: v1
 entries:
+  lomas-admin-dashboard:
+  - apiVersion: v2
+    appVersion: 0.0.1
+    created: "2024-05-31T09:20:55.565493746Z"
+    description: FSO's Lomas Server Administration Dashboard Deployment Chart
+    digest: 4382f4407bef8a6cfb3a6a6901695ef30806931a73378202357f6799fc623ea4
+    name: lomas-admin-dashboard
+    type: application
+    urls:
+    - https://github.com/dscc-admin-ch/helm-charts/releases/download/lomas-admin-dashboard-0.0.1/lomas-admin-dashboard-0.0.1.tgz
+    version: 0.0.1
   lomas-server:
   - apiVersion: v2
     appVersion: 0.0.1
@@ -57,4 +68,4 @@ entries:
     urls:
     - https://github.com/dscc-admin-ch/helm-charts/releases/download/lomas-server-0.0.1/lomas-server-0.0.1.tgz
     version: 0.0.1
-generated: "2024-05-01T08:59:34.281639619Z"
+generated: "2024-05-31T09:20:55.565528811Z"
