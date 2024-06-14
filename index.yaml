@@ -14,6 +14,20 @@ entries:
   lomas-server:
   - apiVersion: v2
     appVersion: 0.0.1
+    created: "2024-06-14T15:38:13.565547452Z"
+    dependencies:
+    - name: mongodb
+      repository: https://charts.bitnami.com/bitnami
+      version: 13.18.1
+    description: Lomas deployment chart
+    digest: 4d1eefb50a9406d40ea0eabcb76243ea517734fb9985305268d4dca148c1f53f
+    name: lomas-server
+    type: application
+    urls:
+    - https://github.com/dscc-admin-ch/helm-charts/releases/download/lomas-server-0.0.6/lomas-server-0.0.6.tgz
+    version: 0.0.6
+  - apiVersion: v2
+    appVersion: 0.0.1
     created: "2024-06-05T11:38:12.470584252Z"
     dependencies:
     - name: mongodb
@@ -82,4 +96,4 @@ entries:
     urls:
     - https://github.com/dscc-admin-ch/helm-charts/releases/download/lomas-server-0.0.1/lomas-server-0.0.1.tgz
     version: 0.0.1
-generated: "2024-06-05T11:38:12.470608347Z"
+generated: "2024-06-14T15:38:13.565579832Z"
