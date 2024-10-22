@@ -1,5 +1,16 @@
 apiVersion: v1
 entries:
+  llm-serving:
+  - apiVersion: v2
+    appVersion: 0.0.1
+    created: "2024-10-22T08:05:55.950100848Z"
+    description: An example of helm chart to deploy a llm serving
+    digest: c9cbc1b395362fb707fc9469c1c6e45a12ad9b434f53ad52ba5b2ae3c0564c86
+    name: llm-serving
+    type: application
+    urls:
+    - https://github.com/dscc-admin-ch/helm-charts/releases/download/llm-serving-0.0.1/llm-serving-0.0.1.tgz
+    version: 0.0.1
   lomas-admin-dashboard:
   - apiVersion: v2
     appVersion: 0.0.1
@@ -194,4 +205,4 @@ entries:
     urls:
     - https://github.com/dscc-admin-ch/helm-charts/releases/download/lomas-server-0.0.1/lomas-server-0.0.1.tgz
     version: 0.0.1
-generated: "2024-09-16T10:02:34.4876351Z"
+generated: "2024-10-22T08:05:55.950135683Z"
