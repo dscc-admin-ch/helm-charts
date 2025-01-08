@@ -11,5 +11,3 @@ spec:
   - port: {{ .Values.service.port.number }}
     protocol: TCP
     targetPort: {{ .Values.service.port.number }}
-    nodePort: {{ .Values.service.port.nodePort }}
-  type: NodePort

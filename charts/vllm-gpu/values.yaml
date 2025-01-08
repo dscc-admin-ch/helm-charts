@@ -19,7 +19,6 @@ deployment:
 service:
   port:
     number: 8000
-    nodePort: 30501
 
 
 ingress:
