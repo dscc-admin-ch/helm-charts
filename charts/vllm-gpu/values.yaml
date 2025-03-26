@@ -1,10 +1,15 @@
+global:
+  suspend: false # Allow scaling the app to 0
+
 nameOverride: ""
 fullnameOverride: "llm-serving"
 podAnnotations: {}
 
 service:
+  type: ClusterIP
+  nodePort:
   image:
-    version: "vllm/vllm-openai:v0.7.0"
+    version: "vllm/vllm-openai:v0.8.2"
     pullPolicy: IfNotPresent
     custom:
       enabled: false
@@ -15,7 +20,7 @@ resources:
     gpu:
       number: 1
 
-huggingFace: 
+huggingFace:
   hfToken: ""
 
 llm:
@@ -28,11 +33,11 @@ networking:
     number: 8000
 
 ingress:
-    enabled: true
-    className: ""
-    annotations: 
-      nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
-    hostname: "chart-example.local"
+  enabled: true
+  className: ""
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+  hostname: "chart-example.local"
 
 s3:
   enabled: true # Set to true to use S3
