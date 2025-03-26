@@ -3,7 +3,11 @@ kind: Deployment
 metadata:
   name: {{ include "llm-serving.fullname" . }}
 spec:
+  {{- if .Values.global.suspend }}
+  replicas: 0
+  {{- else }}
   replicas: 1
+  {{- end }}
   selector:
     matchLabels:
       {{- include "llm-serving.selectorLabels" . | nindent 6 }}
