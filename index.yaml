@@ -104,6 +104,29 @@ entries:
     version: 0.0.1
   lomas-server:
   - apiVersion: v2
+    appVersion: 0.5.0
+    created: "2025-05-20T08:55:01.122362896Z"
+    dependencies:
+    - name: mongodb
+      repository: oci://registry-1.docker.io/bitnamicharts
+      version: 16.5.6
+    - condition: rabbitmq.create
+      name: rabbitmq
+      repository: oci://registry-1.docker.io/bitnamicharts
+      version: 15.5.0
+    - condition: keycloak.create
+      name: keycloak
+      repository: oci://registry-1.docker.io/bitnamicharts
+      version: 24.4.13
+    description: Lomas deployment chart
+    digest: 8f0e3c3a09ac2448097eb9071f5632c6080974caa1e6e50b8f83ad812c3b433a
+    icon: https://raw.githubusercontent.com/dscc-admin-ch/lomas/refs/heads/master/images/lomas_logo.svg
+    name: lomas-server
+    type: application
+    urls:
+    - https://github.com/dscc-admin-ch/helm-charts/releases/download/lomas-server-0.5.0/lomas-server-0.5.0.tgz
+    version: 0.5.0
+  - apiVersion: v2
     appVersion: 0.4.1
     created: "2025-02-17T13:06:24.058076325Z"
     dependencies:
@@ -349,4 +372,4 @@ entries:
     urls:
     - https://github.com/dscc-admin-ch/helm-charts/releases/download/lomas-server-0.0.1/lomas-server-0.0.1.tgz
     version: 0.0.1
-generated: "2025-03-26T15:11:43.747481362Z"
+generated: "2025-05-20T08:55:01.122495824Z"
