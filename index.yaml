@@ -22,6 +22,16 @@ entries:
     - https://github.com/dscc-admin-ch/helm-charts/releases/download/llm-serving-0.1.0/llm-serving-0.1.0.tgz
     version: 0.1.0
   - apiVersion: v2
+    appVersion: 0.0.10
+    created: "2025-06-19T12:44:50.877214707Z"
+    description: An example of helm chart to deploy a llm serving
+    digest: bc90927221ff281e1a9c583a1a93a44d2a6aaa219e030d834694af99033fa72b
+    name: llm-serving
+    type: application
+    urls:
+    - https://github.com/dscc-admin-ch/helm-charts/releases/download/llm-serving-0.0.10/llm-serving-0.0.10.tgz
+    version: 0.0.10
+  - apiVersion: v2
     appVersion: 0.0.7
     created: "2025-02-05T16:02:09.491289178Z"
     description: An example of helm chart to deploy a llm serving
@@ -388,4 +398,4 @@ entries:
     urls:
     - https://github.com/dscc-admin-ch/helm-charts/releases/download/statbot-0.0.1/statbot-0.0.1.tgz
     version: 0.0.1
-generated: "2025-06-19T12:22:51.612270553Z"
+generated: "2025-06-19T12:44:50.877298504Z"
