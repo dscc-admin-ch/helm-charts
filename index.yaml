@@ -2,16 +2,6 @@ apiVersion: v1
 entries:
   llm-serving:
   - apiVersion: v2
-    appVersion: 0.1.2
-    created: "2025-06-20T07:18:21.56388302Z"
-    description: An example of helm chart to deploy a llm serving
-    digest: 8eed84837f14264600a0d9f4ac8945c2d125aaaa73c630a9aa85daa4d8fdf3f9
-    name: llm-serving
-    type: application
-    urls:
-    - https://github.com/dscc-admin-ch/helm-charts/releases/download/llm-serving-0.8.2/llm-serving-0.8.2.tgz
-    version: 0.8.2
-  - apiVersion: v2
     appVersion: 0.8.2
     created: "2025-03-26T15:11:43.747407263Z"
     description: An example of helm chart to deploy a llm serving
@@ -31,16 +21,6 @@ entries:
     urls:
     - https://github.com/dscc-admin-ch/helm-charts/releases/download/llm-serving-0.1.0/llm-serving-0.1.0.tgz
     version: 0.1.0
-  - apiVersion: v2
-    appVersion: 0.0.10
-    created: "2025-06-19T12:44:50.877214707Z"
-    description: An example of helm chart to deploy a llm serving
-    digest: bc90927221ff281e1a9c583a1a93a44d2a6aaa219e030d834694af99033fa72b
-    name: llm-serving
-    type: application
-    urls:
-    - https://github.com/dscc-admin-ch/helm-charts/releases/download/llm-serving-0.0.10/llm-serving-0.0.10.tgz
-    version: 0.0.10
   - apiVersion: v2
     appVersion: 0.0.7
     created: "2025-02-05T16:02:09.491289178Z"
@@ -391,21 +371,5 @@ entries:
     type: application
     urls:
     - https://github.com/dscc-admin-ch/helm-charts/releases/download/lomas-server-0.0.1/lomas-server-0.0.1.tgz
-    version: 0.0.1
-  statbot:
-  - apiVersion: v2
-    appVersion: 0.0.1
-    created: "2025-06-19T12:22:51.612192356Z"
-    dependencies:
-    - alias: vllm
-      name: llm-serving
-      repository: https://dscc-admin-ch.github.io/helm-charts
-      version: 0.0.5
-    description: A Helm chart for deploying the Statbot API and UI
-    digest: 5c3cbe67a47fb0a7e51c5e58415e983f98e1c330ab7106b0598db979885330ae
-    name: statbot
-    type: application
-    urls:
-    - https://github.com/dscc-admin-ch/helm-charts/releases/download/statbot-0.0.1/statbot-0.0.1.tgz
     version: 0.0.1
 generated: "2025-06-20T07:18:21.563965033Z"
