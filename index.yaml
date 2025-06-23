@@ -2,6 +2,16 @@ apiVersion: v1
 entries:
   llm-serving:
   - apiVersion: v2
+    appVersion: 0.1.2
+    created: "2025-06-23T08:51:21.44040163Z"
+    description: An example of helm chart to deploy a llm serving
+    digest: a9a58525ce46327911638cc04224ba0b531ee0f1fe311b2c8af20a8b3c4df723
+    name: llm-serving
+    type: application
+    urls:
+    - https://github.com/dscc-admin-ch/helm-charts/releases/download/llm-serving-0.8.2/llm-serving-0.8.2.tgz
+    version: 0.8.2
+  - apiVersion: v2
     appVersion: 0.8.2
     created: "2025-03-26T15:11:43.747407263Z"
     description: An example of helm chart to deploy a llm serving
@@ -372,4 +382,20 @@ entries:
     urls:
     - https://github.com/dscc-admin-ch/helm-charts/releases/download/lomas-server-0.0.1/lomas-server-0.0.1.tgz
     version: 0.0.1
-generated: "2025-06-20T07:18:21.563965033Z"
+  statbot:
+  - apiVersion: v2
+    appVersion: 0.0.2
+    created: "2025-06-23T08:51:21.572174447Z"
+    dependencies:
+    - alias: vllm
+      name: llm-serving
+      repository: https://dscc-admin-ch.github.io/helm-charts
+      version: 0.0.5
+    description: A Helm chart for deploying the Statbot API and UI
+    digest: d3ba5daa45b940345a5ce712f395623c63708c9bfc0315661bcd81f04ecf4903
+    name: statbot
+    type: application
+    urls:
+    - https://github.com/dscc-admin-ch/helm-charts/releases/download/statbot-0.0.2/statbot-0.0.2.tgz
+    version: 0.0.2
+generated: "2025-06-23T08:51:21.572260618Z"
