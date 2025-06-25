@@ -384,6 +384,21 @@ entries:
     version: 0.0.1
   statbot:
   - apiVersion: v2
+    appVersion: 0.0.5
+    created: "2025-06-25T13:03:45.339435001Z"
+    dependencies:
+    - alias: vllm
+      name: llm-serving
+      repository: https://dscc-admin-ch.github.io/helm-charts
+      version: 0.1.3
+    description: A Helm chart for deploying the Statbot API and UI
+    digest: 63de727c5ff134c1115e15abd199285da0a45cefbbeb6cfe53335746b1f315f7
+    name: statbot
+    type: application
+    urls:
+    - https://github.com/dscc-admin-ch/helm-charts/releases/download/statbot-0.0.5/statbot-0.0.5.tgz
+    version: 0.0.5
+  - apiVersion: v2
     appVersion: 0.0.3
     created: "2025-06-25T12:15:33.701621843Z"
     dependencies:
@@ -413,4 +428,4 @@ entries:
     urls:
     - https://github.com/dscc-admin-ch/helm-charts/releases/download/statbot-0.0.2/statbot-0.0.2.tgz
     version: 0.0.2
-generated: "2025-06-25T12:21:41.547439041Z"
+generated: "2025-06-25T13:03:45.339518829Z"
