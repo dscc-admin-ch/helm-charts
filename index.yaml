@@ -2,16 +2,6 @@ apiVersion: v1
 entries:
   llm-serving:
   - apiVersion: v2
-    appVersion: 0.1.2
-    created: "2025-06-23T08:51:21.44040163Z"
-    description: An example of helm chart to deploy a llm serving
-    digest: a9a58525ce46327911638cc04224ba0b531ee0f1fe311b2c8af20a8b3c4df723
-    name: llm-serving
-    type: application
-    urls:
-    - https://github.com/dscc-admin-ch/helm-charts/releases/download/llm-serving-0.8.2/llm-serving-0.8.2.tgz
-    version: 0.8.2
-  - apiVersion: v2
     appVersion: 0.8.2
     created: "2025-06-25T09:35:52.948725024Z"
     description: An example of helm chart to deploy a llm serving
