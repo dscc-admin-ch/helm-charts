@@ -21,10 +21,12 @@ spec:
     spec:
       securityContext:
         {{- toYaml .Values.otel.podSecurityContext | nindent 8 }}
+      imagePullSecrets:
+        {{- toYaml .Values.global.imagePullSecrets | nindent 8}}
 
       containers:
       - name: otel-container
-        image: otel/opentelemetry-collector:0.119.0
+        image: "{{ .Values.otel.image.repository }}:{{ .Values.otel.image.tag }}"
         args:
           - "--config=/conf/otel-collector-config.yaml"
         ports:
@@ -32,6 +34,8 @@ spec:
             name: otlp-grpc
           - containerPort: {{ .Values.otel.config.exporters.prometheus.port }}
             name: metrics
+        resources:
+          {{- toYaml .Values.otel.resources | nindent 10 }}
         volumeMounts:
           - name: otel-config
             readOnly: True

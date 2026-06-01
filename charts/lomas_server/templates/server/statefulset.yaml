@@ -1,26 +1,26 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
-  name: {{ include "lomas.worker.fullname" . }}
+  name: {{ include "lomas.server.fullname" . }}
   labels:
-    {{- include "lomas.worker.labels" . | nindent 4 }}
+    {{- include "lomas.server.labels" . | nindent 4 }}
 spec:
   selector:
     matchLabels:
-      {{- include "lomas.worker.selectorLabels" . | nindent 6 }}
-  replicas: {{ .Values.worker.replicaCount }}
+      {{- include "lomas.server.selectorLabels" . | nindent 6 }}
+  replicas: 1
   template:
     metadata:
-      {{- with .Values.worker.podAnnotations }}
+      {{- with .Values.server.podAnnotations }}
       annotations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "lomas.worker.selectorLabels" . | nindent 8 }}
+        {{- include "lomas.server.selectorLabels" . | nindent 8 }}
     spec:
       serviceAccountName: {{ include "lomas.serviceAccountName" . }}
       securityContext:
-        {{- toYaml .Values.worker.podSecurityContext | nindent 8 }}
+        {{- toYaml .Values.server.podSecurityContext | nindent 8 }}
       imagePullSecrets:
         {{- toYaml .Values.global.imagePullSecrets | nindent 8}}
       initContainers:
@@ -38,25 +38,33 @@ spec:
           resources:
             {{- toYaml .Values.server.initContainers.resources | nindent 12}}
       containers:
-      - name: {{ include "lomas.worker.fullname" . }}
+      - name: {{ include "lomas.server.fullname" . }}
         securityContext:
-            {{- toYaml .Values.worker.securityContext | nindent 12 }}
+            {{- toYaml .Values.server.securityContext | nindent 12 }}
         resources:
-          {{- toYaml .Values.worker.resources | nindent 10 }}
+          {{- toYaml .Values.server.resources | nindent 10}}
         image: "{{ .Values.server.image.repository }}:{{ .Values.server.image.tag }}"
+        command:
+          - lomas-serve
         imagePullPolicy: {{ .Values.server.image.pullPolicy }}
-        command: ["lomas-work"]
         ports:
           - name: http
             containerPort: {{ .Values.server.runtime_args.server.host_port }}
             protocol: TCP
         volumeMounts:
+          - name: db
+            mountPath: /db
           {{- if .Values.server.pvc.data.enabled }}
           - name: data
             mountPath: /data
           {{- end }}
+          {{- if .Values.global.configCABundle.enabled }}
+          - name: trusted-cabundle
+            mountPath: /etc/ssl/certs/{{ .Values.global.configCABundle.filename }}
+            subPath: {{ .Values.global.configCABundle.filename }}
+          {{- end }}
         env:
-          - name: LOMAS_SERVICE_BOOTSTRAP
+          - name: LOMAS_SERVICE_BOOtSTRAP
             valueFrom:
               secretKeyRef:
                 name: {{ include "lomas.server.secretName" . }}
@@ -80,11 +88,11 @@ spec:
           - name: LOMAS_SERVICE_SERVER__TIME_ATTACK__MAGNITUDE
             value: "{{ .Values.server.runtime_args.server.time_attack.magnitude }}"
           - name: LOMAS_SERVICE_ADMIN_DATABASE_URL
-            value: "/persistent-storage/admin.db"
+            value: "/db/admin.db"
           - name: LOMAS_SERVICE_AUTHENTICATOR__AUTHENTICATION_TYPE
             value: "{{ .Values.server.runtime_args.authenticator.authentication_type }}"
           - name: LOMAS_SERVICE_AUTHENTICATOR__OIDC_DISCOVERY_URL
-            value: "{{ .Values.server.runtime_args.authenticator.oidc_discovery_url }}" # todo change recover from dex values?
+            value: "{{ .Values.server.runtime_args.authenticator.oidc_discovery_url }}"
           - name: LOMAS_SERVICE_AUTHENTICATOR__QUERY_USERINFO
             value: "{{ .Values.server.runtime_args.authenticator.query_userinfo }}"
           {{- range $i, $credSecretName := (include "lomas.server.private-db-credentials-secrets" $) | fromYamlArray }}
@@ -97,7 +105,7 @@ spec:
           - name: LOMAS_SERVICE_TELEMETRY__ENABLED
             value: "{{ .Values.server.runtime_args.telemetry.enabled }}"
           - name: LOMAS_SERVICE_TELEMETRY__SERVICE_NAME
-            value: "{{ .Values.server.runtime_args.telemetry.service_name}}"
+            value: "{{ .Values.server.runtime_args.telemetry.service_name }}"
           - name: LOMAS_SERVICE_TELEMETRY__SERVICE_ID
             value: "{{ .Values.server.runtime_args.telemetry.service_id}}"
           - name: LOMAS_SERVICE_TELEMETRY__COLLECTOR_ENDPOINT
@@ -117,21 +125,38 @@ spec:
                 key: {{ template "rabbitmq.secretPasswordKey" (dict "Release" .Release "Chart" (dict "Name" "rabbitmq") "Values" .Values.rabbitmq) }}
           - name: LOMAS_SERVICE_OPENDP_FEATURES
             value: '{{ toJson .Values.server.runtime_args.opendp_features }}'
+          {{- if .Values.global.configCABundle.enabled }}
+          - name: REQUESTS_CA_BUNDLE
+            value: "/etc/ssl/certs/{{ .Values.global.configCABundle.filename }}"
+          - name: SSL_CERT_FILE
+            value: "/etc/ssl/certs/{{ .Values.global.configCABundle.filename }}"
+          {{- end }}
       volumes:
+        - name: db
+          persistentVolumeClaim:
+            claimName: {{ include "lomas.server.dbPVCName" .}}
         {{- if .Values.server.pvc.data.enabled }}
         - name: data
           persistentVolumeClaim:
             claimName: {{ include "lomas.server.dataPVCName" . }}
         {{- end }}
-      {{- with .Values.worker.nodeSelector }}
+        {{- if .Values.global.configCABundle.enabled }}
+        - name: trusted-cabundle
+          configMap:
+            name: {{ .Values.global.configCABundle.name }}
+            items:
+              - key: {{ .Values.global.configCABundle.key }}
+                path: {{ .Values.global.configCABundle.filename }}
+        {{- end }}
+      {{- with .Values.server.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- with .Values.worker.affinity }}
+      {{- with .Values.server.affinity }}
       affinity:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- with .Values.worker.tolerations }}
+      {{- with .Values.server.tolerations }}
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}

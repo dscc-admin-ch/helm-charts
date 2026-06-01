@@ -21,20 +21,24 @@ spec:
     spec:
       securityContext:
         {{- toYaml .Values.tempo.podSecurityContext | nindent 8 }}
-
+      imagePullSecrets:
+        {{- toYaml .Values.global.imagePullSecrets | nindent 8}}
       containers:
       - name: tempo-container
-        image: grafana/tempo:main-265ca32
+        image: "{{ .Values.tempo.image.repository }}:{{ .Values.tempo.image.tag }}"
         args:
           - "--config.file=/etc/tempo.yaml"
         ports:
-          - containerPort: {{ .Values.tempo.service.port}}
+          - containerPort: {{ .Values.tempo.service.port }}
+        resources:
+          {{- toYaml .Values.tempo.resources | nindent 10 }}
         volumeMounts:
           - name: tempo-config
             mountPath: /etc/tempo.yaml
             subPath: tempo.yaml
             readOnly: true
-
+          - name: data
+            mountPath: {{ .Values.tempo.config.storage.trace.basepath }}
       volumes:
       {{- $fullname := include "lomas.tempo.fullname" . }}
       - name: tempo-config
@@ -42,4 +46,7 @@ spec:
           sources:
             - configMap:
                 name: {{ printf "%s-tempo-config" $fullname }}
+      - name: data
+        persistentVolumeClaim:
+          claimName: {{ $fullname }}
 {{- end }}
